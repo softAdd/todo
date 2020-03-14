@@ -33,8 +33,8 @@
 3. ES6
 4. MaterialUI
 5. Redux для управления данными
-6. Create React App
-Будет плюсом: 
+6. Create React App<br>
+Будет плюсом:
 1. Formik для форм
 2. Yup для валидации
 3. Express с бекендом (вместо фейк апи)
