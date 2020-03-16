@@ -1,37 +1,19 @@
-import { Todo } from "./types/Todo";
+import { Todo } from 'store/types/Todo';
 import {
   TodosActionTypes,
   ADD_TODO,
   EDIT_TODO,
   REMOVE_TODO,
   SET_TODOS,
-} from "./types/actions";
+} from '../action-types';
 
-const todosInitialReducer: Array<Todo> = [
-  {
-    id: 1,
-    userId: 1,
-    title: 'title of first user',
-    completed: true,
-  },
-  {
-    id: 2,
-    userId: 2,
-    title: 'title of second user',
-    completed: false,
-  },
-  {
-    id: 3,
-    userId: 3,
-    title: 'title of third user',
-    completed: true,
-  },
-];
+const todosInitialReducer: Array<Todo> = [];
 
-const todosReducer = (
+export default (
   state = todosInitialReducer,
-  action: TodosActionTypes
+  action: TodosActionTypes,
 ): Array<Todo> => {
+
   switch (action.type) {
     case ADD_TODO:
       return [...state, action.todo];
@@ -48,5 +30,3 @@ const todosReducer = (
       return state;
   }
 }
-
-export { todosReducer };
