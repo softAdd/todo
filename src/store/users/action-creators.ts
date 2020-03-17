@@ -29,7 +29,7 @@ export const setFetchUsersSuccess = (): UsersActionTypes => ({
   type: SET_FETCH_USERS_SUCCESS,
 });
 
-export const fetchTodosThunk = () => async (dispatch: Dispatch<AppActions>, getState: () => AppState) => {
+export const fetchUsersThunk = () => async (dispatch: Dispatch<AppActions>, getState: () => AppState) => {
   try {
     dispatch(setFetchingUsers())
     const response = await axios.get('http://jsonplaceholder.typicode.com/users');

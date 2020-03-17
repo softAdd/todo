@@ -6,6 +6,7 @@ import Container from '@material-ui/core/Container';
 import TodoTable from 'components/TodoTable';
 import { useDispatch } from 'react-redux';
 import { fetchTodosThunk } from 'store/todos/action-creators';
+import { fetchUsersThunk } from 'store/users/action-creators';
 import useEffectOnce from 'hooks/useEffectOnce';
 
 export default () => {
@@ -13,6 +14,7 @@ export default () => {
 
   useEffectOnce(() => {
     dispatch(fetchTodosThunk());
+    dispatch(fetchUsersThunk());
   });
 
   return (
@@ -21,7 +23,7 @@ export default () => {
         <Toolbar>
         </Toolbar>
       </AppBar>
-      <Container maxWidth="lg">
+      <Container maxWidth="md">
         <TodoTable />
       </Container>
     </Container>

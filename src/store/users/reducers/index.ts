@@ -1,4 +1,4 @@
-import { UsersApiState } from 'store/types/User';
+import { UsersApiState } from 'store/types/UsersApiState';
 import {
   UsersActionTypes,
   SET_FETCHING_USERS,
@@ -8,7 +8,7 @@ import {
 } from '../action-types';
 
 const apiInitialReducer: UsersApiState = {
-  users: [],
+  userList: [],
   isFetching: false,
   error: null,
 }
@@ -20,7 +20,7 @@ export default (
 
   switch (action.type) {
     case SET_USERS:
-      return { ...state, users: action.users };
+      return { ...state, userList: action.users };
     case SET_FETCHING_USERS:
       return { ...state, isFetching: true };
     case SET_FETCH_USERS_ERROR:
