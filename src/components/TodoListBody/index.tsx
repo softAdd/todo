@@ -31,7 +31,7 @@ const filterByStatus = (todos: Array<Todo>, order: FilterOrder): Array<Todo> => 
     return -1;
   });
 
-  if (order === 'asc') {
+  if (order === 'desc') {
     return sortedTodos;
   }
 
