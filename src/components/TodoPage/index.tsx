@@ -9,7 +9,7 @@ import { fetchTodosThunk } from 'store/todos/action-creators';
 import { fetchUsersThunk } from 'store/users/action-creators';
 import useEffectOnce from 'hooks/useEffectOnce';
 
-export default () => {
+const TodoPage: React.FC = () => {
   const dispatch = useDispatch();
 
   useEffectOnce(() => {
@@ -18,7 +18,7 @@ export default () => {
   });
 
   return (
-    <Container maxWidth={false} disableGutters={true}>
+    <Container maxWidth={false} disableGutters>
       <AppBar position="static">
         <Toolbar>
         </Toolbar>
@@ -29,3 +29,5 @@ export default () => {
     </Container>
   )
 }
+
+export default TodoPage;

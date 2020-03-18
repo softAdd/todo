@@ -18,15 +18,15 @@ const headCells: Array<HeadCell> = [
   { id: 'task-author', label: 'Author', last: false, },
   { id: 'task-name', label: 'Title', last: false, },
   { id: 'task-actions', label: 'Actions', last: true, },
-]
+];
 
-export default () => {
+const TodoTableHead: React.FC = () => {
   return (
     <TableHead>
       <TableRow>
         <TableCell colSpan={3}>
           <TextField
-            label="Search tasks"
+            label="Search title"
             type="text"
             autoComplete="current-password"
           />
@@ -43,10 +43,20 @@ export default () => {
       </TableRow>
       <TableRow>
         {headCells.map(headCell => {
+          if (headCell.last) {
+            return (
+              <TableCell
+                key={headCell.id}
+                align="right"
+              >
+                {headCell.label}
+              </TableCell>
+            )
+          }
+
           return (
             <TableCell
               key={headCell.id}
-              align={headCell.last ? "right" : "left"}
             >
               <TableSortLabel>
                 {headCell.label}
@@ -58,3 +68,5 @@ export default () => {
     </TableHead>
   )
 }
+
+export default TodoTableHead;
