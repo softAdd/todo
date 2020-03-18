@@ -1,7 +1,8 @@
-import { Todo } from 'store/types/Todo';
 import { Dispatch } from 'redux';
 import axios from 'axios';
+
 import {
+  TodosActionTypes,
   ADD_TODO,
   EDIT_TODO,
   REMOVE_TODO,
@@ -9,10 +10,16 @@ import {
   SET_FETCHING_TODOS,
   SET_FETCH_TODOS_SUCCESS,
   SET_FETCH_TODOS_ERROR,
-  TodosActionTypes
+  SET_FILTER,
+  SET_FILTER_ORDER,
+  SET_FILTER_SEARCH_TEXT,
 } from './action-types';
+
+import { Todo } from 'store/types/Todo';
 import { AppActions } from 'store/types/AppActions';
 import { AppState } from 'store/types/AppState';
+import { FilterName, FilterOrder } from 'store/types/TodoFilter';
+
 
 export const addTodo = (todo: Todo): TodosActionTypes => ({
   type: ADD_TODO,
@@ -46,6 +53,21 @@ export const setFetchTodosError = (error: string): TodosActionTypes => ({
   type: SET_FETCH_TODOS_ERROR,
   error,
 });
+
+export const setFilter = (name: FilterName): TodosActionTypes => ({
+  type: SET_FILTER,
+  name,
+});
+
+export const setFilterOrder = (order: FilterOrder)  => ({
+  type: SET_FILTER_ORDER,
+  order,
+});
+
+export const setFilterSearchText = (searchText: string) => ({
+  type: SET_FILTER_SEARCH_TEXT,
+  searchText,
+})
 
 export const fetchTodosThunk = () => async (dispatch: Dispatch<AppActions>, getState: () => AppState) => {
   try {

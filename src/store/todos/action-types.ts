@@ -1,4 +1,5 @@
 import { Todo } from 'store/types/Todo';  
+import { FilterName, FilterOrder } from 'store/types/TodoFilter';
 
 export const ADD_TODO = 'ADD_TODO';
 export const EDIT_TODO = 'EDIT_TODO';
@@ -7,6 +8,9 @@ export const SET_TODOS = 'SET_TODOS';
 export const SET_FETCHING_TODOS = 'SET_FETCHING_TODOS';
 export const SET_FETCH_TODOS_SUCCESS = 'SET_FETCH_TODOS_SUCCESS';
 export const SET_FETCH_TODOS_ERROR = 'SET_FETCH_TODOS_ERROR';
+export const SET_FILTER = 'SET_FILTER';
+export const SET_FILTER_ORDER = 'SET_FILTER_ORDER';
+export const SET_FILTER_SEARCH_TEXT = 'SET_FILTER_SEARCH_TEXT';
 
 export type AddTodoAction = {
   type: typeof ADD_TODO,
@@ -41,5 +45,21 @@ export type SetFetchTodosErrorAction = {
   error: string,
 }
 
+export type setFilter = {
+  type: typeof SET_FILTER,
+  name: FilterName,
+}
+
+export type setFilterOrder = {
+  type: typeof SET_FILTER_ORDER,
+  order: FilterOrder,
+}
+
+export type setFilterSearchText = {
+  type: typeof SET_FILTER_SEARCH_TEXT,
+  searchText: string,
+}
+
 export type TodosActionTypes = SetTodosAction | EditTodoAction | RemoveTodoAction | AddTodoAction | 
-  SetFetchingTodosAction | SetFetchTodosSuccessAction | SetFetchTodosErrorAction;
+  SetFetchingTodosAction | SetFetchTodosSuccessAction | SetFetchTodosErrorAction | setFilter |
+  setFilterOrder | setFilterSearchText;

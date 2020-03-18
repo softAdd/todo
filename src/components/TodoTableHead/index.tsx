@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
@@ -6,21 +6,56 @@ import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
 import TextField from '@material-ui/core/TextField';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
+import { useDispatch, useSelector } from 'react-redux';
+import { setFilterSearchText, setFilter, setFilterOrder } from 'store/todos/action-creators';
+import { FilterOrder, FilterName } from 'store/types/TodoFilter';
+import { AppState } from 'store/types/AppState';
 
-type HeadCell = {
+type HeadCellType = {
   id: string,
+  filter: FilterName,
   label: string,
-  last: boolean,
+  active: boolean,
 }
 
-const headCells: Array<HeadCell> = [
-  { id: 'task-status', label: 'Completed', last: false, },
-  { id: 'task-author', label: 'Author', last: false, },
-  { id: 'task-name', label: 'Title', last: false, },
-  { id: 'task-actions', label: 'Actions', last: true, },
-];
-
 const TodoTableHead: React.FC = () => {
+  const dispatch = useDispatch();
+  const currentFilterName: FilterName = useSelector((state: AppState) => state.todos.todoFilter.name);
+  const currentFilterOrder: FilterOrder = useSelector((state: AppState) => state.todos.todoFilter.order);
+
+  const [headCells, updateCells]: [Array<HeadCellType>, Function] = useState([
+    { id: 'task-status', label: 'Completed', filter: 'status', active: false },
+    { id: 'task-author', label: 'Author', filter: 'author', active: false },
+    { id: 'task-title', label: 'Title', filter: 'title', active: false },
+    { id: 'task-actions', label: 'Actions', filter: 'none', active: false },
+  ]);
+
+  const handleSearchTyping = (evt: React.ChangeEvent<HTMLInputElement>): void => {
+    const searchText = evt.target.value;
+    dispatch(setFilterSearchText(searchText));
+  }
+
+  const toggleFilter = (selectedHeadCell: HeadCellType): void => {
+    const selectedFilter: FilterName = selectedHeadCell.filter;
+
+    dispatch(setFilter(selectedFilter));
+    
+    updateCells(headCells.map(headCell => {
+      if (headCell.id === selectedHeadCell.id) {
+        return { ...headCell, active: true };
+      }
+      
+      return { ...headCell, active: false };
+    }));
+
+    if (currentFilterName === selectedFilter) {
+      const updatedFilter = currentFilterOrder === 'asc' ? 'desc' : 'asc';
+      dispatch(setFilterOrder(updatedFilter));
+    } else {
+      dispatch(setFilterOrder('asc'));
+    }
+  }
+
   return (
     <TableHead>
       <TableRow>
@@ -28,13 +63,13 @@ const TodoTableHead: React.FC = () => {
           <TextField
             label="Search title"
             type="text"
-            autoComplete="current-password"
+            onChange={handleSearchTyping}
           />
         </TableCell>
         <TableCell>
           <Button
             variant="contained"
-            color="secondary"
+            color="primary"
             startIcon={<AddIcon />}
           >
             Add
@@ -42,14 +77,16 @@ const TodoTableHead: React.FC = () => {
         </TableCell>
       </TableRow>
       <TableRow>
-        {headCells.map(headCell => {
-          if (headCell.last) {
+        {headCells.map((headCell, cellMapId) => {
+          const { id, label, active } = headCell;
+
+          if (headCells.length === (cellMapId + 1)) {
             return (
               <TableCell
-                key={headCell.id}
+                key={id}
                 align="right"
               >
-                {headCell.label}
+                {label}
               </TableCell>
             )
           }
@@ -57,9 +94,13 @@ const TodoTableHead: React.FC = () => {
           return (
             <TableCell
               key={headCell.id}
+              onClick={toggleFilter.bind(null, headCell)}
             >
-              <TableSortLabel>
-                {headCell.label}
+              <TableSortLabel
+                direction={active ? currentFilterOrder : 'asc'}
+                active={active}
+              >
+                {label}
               </TableSortLabel>
             </TableCell>
           )

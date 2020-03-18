@@ -1,6 +1,4 @@
 import React from 'react';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
 import Container from '@material-ui/core/Container';
 
 import TodoTable from 'components/TodoTable';
@@ -19,10 +17,6 @@ const TodoPage: React.FC = () => {
 
   return (
     <Container maxWidth={false} disableGutters>
-      <AppBar position="static">
-        <Toolbar>
-        </Toolbar>
-      </AppBar>
       <Container maxWidth="md">
         <TodoTable />
       </Container>

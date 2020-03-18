@@ -5,6 +5,7 @@ import TableContainer from '@material-ui/core/TableContainer';
 
 import { Todo } from 'store/types/Todo';
 import { User } from 'store/types/User';
+import { TodoFilter } from 'store/types/TodoFilter';
 import { AppState } from 'store/types/AppState';
 import { useSelector } from 'react-redux';
 
@@ -14,13 +15,14 @@ import TodoListBody from 'components/TodoListBody';
  const TodoTable: React.FC = () => {
   const todos: Array<Todo> = useSelector((state: AppState) => state.todos.todoList);
   const users: Array<User> = useSelector((state: AppState) => state.users.userList);
+  const filter: TodoFilter = useSelector((state: AppState) => state.todos.todoFilter);
 
   return (
     <Paper elevation={2}>
       <TableContainer>
         <Table>
           <TodoTableHead />
-          <TodoListBody todos={todos} users={users} filter={{ name: 'author', order: 'desc', searchString: '' }} />
+          <TodoListBody todos={todos} users={users} filter={filter} />
         </Table>
       </TableContainer>
     </Paper>
