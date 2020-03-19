@@ -1,7 +1,12 @@
-import { makeStyles } from '@material-ui/core';
+import { makeStyles } from "@material-ui/core";
 
 export const useStyles = makeStyles({
   head: {
-    height: '90px',
+    height: "90px"
+  },
+  toggleButton: {
+    "& span": {
+      whiteSpace: "nowrap"
+    }
   }
 });

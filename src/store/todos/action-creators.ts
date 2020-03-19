@@ -1,5 +1,5 @@
-import { Dispatch } from 'redux';
-import axios from 'axios';
+import { Dispatch } from "redux";
+import axios from "axios";
 
 import {
   TodosActionTypes,
@@ -12,69 +12,70 @@ import {
   SET_FETCH_TODOS_ERROR,
   SET_FILTER,
   SET_FILTER_ORDER,
-  SET_FILTER_SEARCH_TEXT,
-} from './action-types';
+  SET_FILTER_SEARCH_TEXT
+} from "./action-types";
 
-import { TodoType } from 'store/types/Todo';
-import { AppActions } from 'store/types/AppActions';
-import { FilterName, FilterOrder } from 'store/types/TodoFilter';
-
+import { TodoType } from "store/types/Todo";
+import { AppActions } from "store/types/AppActions";
+import { FilterName, FilterOrder } from "store/types/TodoFilter";
 
 export const addTodo = (todo: TodoType): TodosActionTypes => ({
   type: ADD_TODO,
-  todo,
+  todo
 });
 
 export const editTodo = (todo: TodoType): TodosActionTypes => ({
   type: EDIT_TODO,
-  todo,
+  todo
 });
 
 export const removeTodo = (todo: TodoType): TodosActionTypes => ({
   type: REMOVE_TODO,
-  todo,
+  todo
 });
 
 export const setTodos = (todos: Array<TodoType>): TodosActionTypes => ({
   type: SET_TODOS,
-  todos,
+  todos
 });
 
 export const setFetchingTodos = (): TodosActionTypes => ({
-  type: SET_FETCHING_TODOS,
+  type: SET_FETCHING_TODOS
 });
 
 export const setFetchTodosSuccess = (): TodosActionTypes => ({
-  type: SET_FETCH_TODOS_SUCCESS,
+  type: SET_FETCH_TODOS_SUCCESS
 });
 
 export const setFetchTodosError = (error: string): TodosActionTypes => ({
   type: SET_FETCH_TODOS_ERROR,
-  error,
+  error
 });
 
 export const setFilter = (name: FilterName): TodosActionTypes => ({
   type: SET_FILTER,
-  name,
+  name
 });
 
-export const setFilterOrder = (order: FilterOrder)  => ({
+export const setFilterOrder = (order: FilterOrder) => ({
   type: SET_FILTER_ORDER,
-  order,
+  order
 });
 
 export const setFilterSearchText = (searchText: string) => ({
   type: SET_FILTER_SEARCH_TEXT,
-  searchText,
-})
+  searchText
+});
 
 export const fetchTodosThunk = () => async (dispatch: Dispatch<AppActions>) => {
   try {
-    dispatch(setFetchingTodos())
-    const response = await axios.get('http://jsonplaceholder.typicode.com/todos');
+    dispatch(setFetchingTodos());
+    const response = await axios.get(
+      "https://jsonplaceholder.typicode.com/todos"
+    );
     dispatch(setFetchTodosSuccess());
     dispatch(setTodos(response.data));
   } catch (err) {
     dispatch(setFetchTodosError(err.message));
   }
-}
+};
