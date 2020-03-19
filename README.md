@@ -1,44 +1,53 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+**Ссылки**
 
-## Available Scripts
+[Ветка с инициализирующим коммитом и ПР](https://github.com/softAdd/todo-list/tree/initial-commit)<br>
+[Задание на codesandbox.io](https://codesandbox.io/s/todo-list-m6swf)
 
-In the project directory, you can run:
+**Скрипты**
 
-### `npm start`
+`npm install` - установить все зависимости.<br>
+`npm start` - запустить в режиме разработки.<br>
+`npm run build` - запустить сборку.
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+**Задание**
 
-### `npm test`
+Нужно написать интерфейс для работы с задачами пользователей.<br>
+В качестве бекенда необходимо использовать фэйк-апи.<br>
+Данные которые приходят с бекенда необходимо взять [отсюда](http://jsonplaceholder.typicode.com/todos).<br>
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Главная страница представляет собой таблицу со списком задач.<br>
+Колонки таблицы:<br>
+* Статус (выполнено/не выполнено);<br>
+* Исполнитель задачи (имя исполнителя взять [отсюда](http://jsonplaceholder.typicode.com/users) по id);<br>
+* Название задачи.
 
-### `npm run build`
+Статус и название задачи можно редактировать.<br>
+Задачи можно создавать, редактировать, удалять (на фронтенде).<br>
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+Будет плюсом:<br>
+* Реализация фильтров по статусу и исполнителю;<br>
+* Реализация поиска подстроки по названию задания;<br>
+* В title страницы должно отображаться количество заданий, удовлетворяющих выборке.<br>
+* При нажатии на исполнителя открывается список его задач (использовать react-router-dom). 
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Обязательно использовать:
+1. Typescript
+2. React
+3. ES6
+4. MaterialUI
+5. Redux для управления данными
+6. Create React App
 
-### `npm run eject`
+Будет плюсом:
+1. Formik для форм
+2. Yup для валидации
+3. Express с бекендом (вместо фейк апи)
+4. React-хуки
+5. Redux-thunk для асинхронных запросов (если делается бекенд)
+6. Работа с react-redux с помощью хуков
+7. react-router-dom для главной страницы и страниц редактирования задач
+8. codesandbox.io для онлайн просмотра
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+Оформить все в git-репозитории на сайте github.com. Необходимо создать инициализирующий коммит. А тестовое оформить в виде ПР (pull request) в git.
