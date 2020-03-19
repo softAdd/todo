@@ -1,14 +1,14 @@
-import { UserType } from "store/types/User";
-import { Dispatch } from "redux";
-import axios from "axios";
+import { UserType } from 'store/types/User';
+import { Dispatch } from 'redux';
+import axios from 'axios';
 import {
   UsersActionTypes,
   SET_USERS,
   SET_FETCHING_USERS,
   SET_FETCH_USERS_ERROR,
   SET_FETCH_USERS_SUCCESS
-} from "./action-types";
-import { AppActions } from "store/types/AppActions";
+} from './action-types';
+import { AppActions } from 'store/types/AppActions';
 
 export const setUsers = (users: Array<UserType>): UsersActionTypes => ({
   type: SET_USERS,
@@ -32,7 +32,7 @@ export const fetchUsersThunk = () => async (dispatch: Dispatch<AppActions>) => {
   try {
     dispatch(setFetchingUsers());
     const response = await axios.get(
-      "https://jsonplaceholder.typicode.com/users"
+      'https://jsonplaceholder.typicode.com/users'
     );
     dispatch(setFetchUsersSuccess());
     dispatch(setUsers(response.data));

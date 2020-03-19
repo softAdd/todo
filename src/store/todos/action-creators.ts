@@ -1,5 +1,5 @@
-import { Dispatch } from "redux";
-import axios from "axios";
+import { Dispatch } from 'redux';
+import axios from 'axios';
 
 import {
   TodosActionTypes,
@@ -13,11 +13,11 @@ import {
   SET_FILTER,
   SET_FILTER_ORDER,
   SET_FILTER_SEARCH_TEXT
-} from "./action-types";
+} from './action-types';
 
-import { TodoType } from "store/types/Todo";
-import { AppActions } from "store/types/AppActions";
-import { FilterName, FilterOrder } from "store/types/TodoFilter";
+import { TodoType } from 'store/types/Todo';
+import { AppActions } from 'store/types/AppActions';
+import { FilterName, FilterOrder } from 'store/types/TodoFilter';
 
 export const addTodo = (todo: TodoType): TodosActionTypes => ({
   type: ADD_TODO,
@@ -71,7 +71,7 @@ export const fetchTodosThunk = () => async (dispatch: Dispatch<AppActions>) => {
   try {
     dispatch(setFetchingTodos());
     const response = await axios.get(
-      "https://jsonplaceholder.typicode.com/todos"
+      'https://jsonplaceholder.typicode.com/todos'
     );
     dispatch(setFetchTodosSuccess());
     dispatch(setTodos(response.data));

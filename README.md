@@ -1,3 +1,8 @@
+**Ссылки**
+
+[Ветка с инициализирующим коммитом и ПР](https://github.com/softAdd/todo-list/tree/initial-commit)<br>
+[Задание на codesandbox.io](https://codesandbox.io/s/todo-list-m6swf)
+
 **Скрипты**
 
 `npm install` - установить все зависимости.<br>
