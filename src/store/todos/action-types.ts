@@ -1,4 +1,4 @@
-import { Todo } from 'store/types/Todo';  
+import { TodoType } from 'store/types/Todo';  
 import { FilterName, FilterOrder } from 'store/types/TodoFilter';
 
 export const ADD_TODO = 'ADD_TODO';
@@ -14,22 +14,22 @@ export const SET_FILTER_SEARCH_TEXT = 'SET_FILTER_SEARCH_TEXT';
 
 export type AddTodoAction = {
   type: typeof ADD_TODO,
-  todo: Todo,
+  todo: TodoType,
 }
 
 export type EditTodoAction = {
   type: typeof EDIT_TODO,
-  todo: Todo,
+  todo: TodoType,
 }
 
 export type RemoveTodoAction = {
   type: typeof REMOVE_TODO,
-  todo: Todo,
+  todo: TodoType,
 }
 
 export type SetTodosAction = {
   type: typeof SET_TODOS,
-  todos: Array<Todo>,
+  todos: Array<TodoType>,
 }
 
 export type SetFetchingTodosAction = {

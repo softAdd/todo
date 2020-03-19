@@ -3,8 +3,8 @@ import Table from '@material-ui/core/Table';
 import Paper from '@material-ui/core/Paper';
 import TableContainer from '@material-ui/core/TableContainer';
 
-import { Todo } from 'store/types/Todo';
-import { User } from 'store/types/User';
+import { TodoType } from 'store/types/Todo';
+import { UserType } from 'store/types/User';
 import { TodoFilter } from 'store/types/TodoFilter';
 import { AppState } from 'store/types/AppState';
 import { useSelector } from 'react-redux';
@@ -13,8 +13,8 @@ import TodoTableHead from 'components/TodoTableHead';
 import TodoListBody from 'components/TodoListBody';
 
  const TodoTable: React.FC = () => {
-  const todos: Array<Todo> = useSelector((state: AppState) => state.todos.todoList);
-  const users: Array<User> = useSelector((state: AppState) => state.users.userList);
+  const todos: Array<TodoType> = useSelector((state: AppState) => state.todos.todoList);
+  const users: Array<UserType> = useSelector((state: AppState) => state.users.userList);
   const filter: TodoFilter = useSelector((state: AppState) => state.todos.todoFilter);
 
   return (

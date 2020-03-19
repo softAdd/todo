@@ -15,28 +15,27 @@ import {
   SET_FILTER_SEARCH_TEXT,
 } from './action-types';
 
-import { Todo } from 'store/types/Todo';
+import { TodoType } from 'store/types/Todo';
 import { AppActions } from 'store/types/AppActions';
-import { AppState } from 'store/types/AppState';
 import { FilterName, FilterOrder } from 'store/types/TodoFilter';
 
 
-export const addTodo = (todo: Todo): TodosActionTypes => ({
+export const addTodo = (todo: TodoType): TodosActionTypes => ({
   type: ADD_TODO,
   todo,
 });
 
-export const editTodo = (todo: Todo): TodosActionTypes => ({
+export const editTodo = (todo: TodoType): TodosActionTypes => ({
   type: EDIT_TODO,
   todo,
 });
 
-export const removeTodo = (todo: Todo): TodosActionTypes => ({
+export const removeTodo = (todo: TodoType): TodosActionTypes => ({
   type: REMOVE_TODO,
   todo,
 });
 
-export const setTodos = (todos: Array<Todo>): TodosActionTypes => ({
+export const setTodos = (todos: Array<TodoType>): TodosActionTypes => ({
   type: SET_TODOS,
   todos,
 });
@@ -69,7 +68,7 @@ export const setFilterSearchText = (searchText: string) => ({
   searchText,
 })
 
-export const fetchTodosThunk = () => async (dispatch: Dispatch<AppActions>, getState: () => AppState) => {
+export const fetchTodosThunk = () => async (dispatch: Dispatch<AppActions>) => {
   try {
     dispatch(setFetchingTodos())
     const response = await axios.get('http://jsonplaceholder.typicode.com/todos');

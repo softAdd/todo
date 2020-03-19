@@ -1,4 +1,4 @@
-import { User } from 'store/types/User';
+import { UserType } from 'store/types/User';
 import { Dispatch } from 'redux';
 import axios from 'axios';
 import {
@@ -9,9 +9,8 @@ import {
   SET_FETCH_USERS_SUCCESS,
 } from './action-types';
 import { AppActions } from 'store/types/AppActions';
-import { AppState } from 'store/types/AppState';
 
-export const setUsers = (users: Array<User>): UsersActionTypes => ({
+export const setUsers = (users: Array<UserType>): UsersActionTypes => ({
   type: SET_USERS,
   users,
 });
@@ -29,7 +28,7 @@ export const setFetchUsersSuccess = (): UsersActionTypes => ({
   type: SET_FETCH_USERS_SUCCESS,
 });
 
-export const fetchUsersThunk = () => async (dispatch: Dispatch<AppActions>, getState: () => AppState) => {
+export const fetchUsersThunk = () => async (dispatch: Dispatch<AppActions>) => {
   try {
     dispatch(setFetchingUsers())
     const response = await axios.get('http://jsonplaceholder.typicode.com/users');

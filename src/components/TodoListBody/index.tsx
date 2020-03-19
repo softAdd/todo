@@ -3,17 +3,20 @@ import _ from 'lodash';
 import TableBody from '@material-ui/core/TableBody';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
-import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff'
-import { Todo } from 'store/types/Todo';
-import { User } from 'store/types/User';
+import EditIcon from '@material-ui/icons/Edit';
+import { TodoType } from 'store/types/Todo';
+import { UserType } from 'store/types/User';
 import { TodoFilter, FilterOrder } from 'store/types/TodoFilter';
 import { useDispatch } from 'react-redux';
 import { removeTodo } from 'store/todos/action-creators';
+import { useStyles } from './styles';
+import { Link } from 'react-router-dom';
 
-const getUsername = (todo: Todo, users: Array<User>): string => {
+const getUsername = (todo: TodoType, users: Array<UserType>): string => {
   let username: string = '-';
-  const user: User | undefined = users.find(user => user.id === todo.userId);
+  const user: UserType | undefined = users.find(user => user.id.toString() === todo.userId.toString());
 
   if (user) {
     username = user.name;
@@ -22,7 +25,7 @@ const getUsername = (todo: Todo, users: Array<User>): string => {
   return username;
 }
 
-const filterByStatus = (todos: Array<Todo>, order: FilterOrder): Array<Todo> => {
+const filterByStatus = (todos: Array<TodoType>, order: FilterOrder): Array<TodoType> => {
   const sortedTodos = todos.sort(todo => {
     if (todo.completed) {
       return 1;
@@ -38,7 +41,7 @@ const filterByStatus = (todos: Array<Todo>, order: FilterOrder): Array<Todo> => 
   return sortedTodos.reverse();
 }
 
-const filterByAuthor = (todos: Array<Todo>, users: Array<User>, order: FilterOrder): Array<Todo> => {
+const filterByAuthor = (todos: Array<TodoType>, users: Array<UserType>, order: FilterOrder): Array<TodoType> => {
   return _.orderBy(todos, [todo => {
     const author = getUsername(todo, users);
 
@@ -46,15 +49,15 @@ const filterByAuthor = (todos: Array<Todo>, users: Array<User>, order: FilterOrd
   }], [order]);
 }
 
-const filterByTitle = (todos: Array<Todo>, order: FilterOrder): Array<Todo> => {
+const filterByTitle = (todos: Array<TodoType>, order: FilterOrder): Array<TodoType> => {
   return _.orderBy(todos, [todo => todo.title.toLowerCase()], [order]);
 }
 
-const applyFilter = (todos: Array<Todo>, users: Array<User>, filter: TodoFilter): Array<Todo> => {
-  let todosCopy: Array<Todo> = todos.slice();
+const applyFilter = (todos: Array<TodoType>, users: Array<UserType>, filter: TodoFilter): Array<TodoType> => {
+  let todosCopy: Array<TodoType> = todos.slice();
 
   if (filter.searchText) {
-    todosCopy = _.filter(todosCopy, (todo: Todo) => {
+    todosCopy = _.filter(todosCopy, (todo: TodoType) => {
       return todo.title.indexOf(filter.searchText) !== -1;
     });
   }
@@ -79,42 +82,54 @@ const applyFilter = (todos: Array<Todo>, users: Array<User>, filter: TodoFilter)
 }
 
 type TodoListProps = {
-  todos: Array<Todo>,
-  users: Array<User>,
+  todos: Array<TodoType>,
+  users: Array<UserType>,
   filter: TodoFilter,
 }
 
 const TodoListBody: React.FC<TodoListProps> = ({ todos, users, filter }) => {
   const dispatch = useDispatch();
+  const classes = useStyles();
 
-  const filteredTodos: Array<Todo> = applyFilter(todos, users, filter);
+  const filteredTodos: Array<TodoType> = applyFilter(todos, users, filter);
 
   useEffect(() => {
-    document.title = `Todo List: ${filteredTodos.length}`;
+    document.title = `Todo: ${filteredTodos.length}`;
   }, [filteredTodos, filter]);
 
-  const handleDeleteTodo = (todo: Todo) => {
+  const handleDeleteTodo = (todo: TodoType) => {
     dispatch(removeTodo(todo));
   }
 
   return (
     <TableBody>
-      {filteredTodos.map((todo: Todo) => {
+      {filteredTodos.map((todo: TodoType) => {
         const username: string = getUsername(todo, users);
 
         return (
           <TableRow key={todo.id} hover>
-            <TableCell>{todo.completed ? 'Yes' : 'No' || '-'}</TableCell>
-            <TableCell>{username}</TableCell>
-            <TableCell>{todo.title || '-'}</TableCell>
-            <TableCell align="right">
-              <Button
-                variant="text"
-                color="secondary"
+            <TableCell className={classes.completed}>
+              {todo.completed ? <div className={classes.completedCell}>Yes</div>
+                : <div className={classes.notCompletedCell}>No</div> || '-'}
+            </TableCell>
+            <TableCell className={classes.author}>{username}</TableCell>
+            <TableCell className={classes.title}>{todo.title || '-'}</TableCell>
+            <TableCell className={classes.actions} align="center">
+              <Link to={`/edit/${todo.id}`}>
+                <IconButton
+                  className={classes.actionEdit}
+                  aria-label="edit a todo"
+                >
+                  <EditIcon />
+                </IconButton>
+              </Link>
+              <IconButton
+                className={classes.actionDelete}
+                aria-label="remove a todo"
                 onClick={handleDeleteTodo.bind(null, todo)}
               >
                 <HighlightOffIcon />
-              </Button>
+              </IconButton>
             </TableCell>
           </TableRow>
         )

@@ -1,6 +1,6 @@
-export type Todo = {
-  userId: number,
-  id: number,
+export type TodoType = {
+  userId: number | string,
+  id: number | string,
   title: string,
   completed: boolean,
 }

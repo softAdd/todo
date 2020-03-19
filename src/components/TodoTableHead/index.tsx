@@ -3,13 +3,16 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import Button from '@material-ui/core/Button';
-import AddIcon from '@material-ui/icons/Add';
 import TextField from '@material-ui/core/TextField';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
+import { useStyles } from './styles';
+
 import { useDispatch, useSelector } from 'react-redux';
 import { setFilterSearchText, setFilter, setFilterOrder } from 'store/todos/action-creators';
 import { FilterOrder, FilterName } from 'store/types/TodoFilter';
 import { AppState } from 'store/types/AppState';
+
+import TodoAddForm from 'components/TodoAddForm';
 
 type HeadCellType = {
   id: string,
@@ -22,6 +25,11 @@ const TodoTableHead: React.FC = () => {
   const dispatch = useDispatch();
   const currentFilterName: FilterName = useSelector((state: AppState) => state.todos.todoFilter.name);
   const currentFilterOrder: FilterOrder = useSelector((state: AppState) => state.todos.todoFilter.order);
+  const [addForm, setAddForm] = useState(false);
+
+  const toggleAddForm = (): void => {
+    setAddForm(!addForm);
+  }
 
   const [headCells, updateCells]: [Array<HeadCellType>, Function] = useState([
     { id: 'task-status', label: 'Completed', filter: 'status', active: false },
@@ -39,12 +47,12 @@ const TodoTableHead: React.FC = () => {
     const selectedFilter: FilterName = selectedHeadCell.filter;
 
     dispatch(setFilter(selectedFilter));
-    
+
     updateCells(headCells.map(headCell => {
       if (headCell.id === selectedHeadCell.id) {
         return { ...headCell, active: true };
       }
-      
+
       return { ...headCell, active: false };
     }));
 
@@ -56,26 +64,31 @@ const TodoTableHead: React.FC = () => {
     }
   }
 
+  const classes = useStyles();
+
   return (
     <TableHead>
-      <TableRow>
-        <TableCell colSpan={3}>
-          <TextField
-            label="Search title"
-            type="text"
-            onChange={handleSearchTyping}
-          />
-        </TableCell>
-        <TableCell>
-          <Button
-            variant="contained"
-            color="primary"
-            startIcon={<AddIcon />}
-          >
-            Add
-          </Button>
-        </TableCell>
-      </TableRow>
+      {addForm ? <TodoAddForm toggleAddForm={toggleAddForm} /> :
+        <TableRow>
+          <TableCell colSpan={3} className={classes.head}>
+            <TextField
+              label="Search title"
+              type="text"
+              onChange={handleSearchTyping}
+            />
+          </TableCell>
+          <TableCell align="right">
+            <Button
+              aria-label="add a todo"
+              onClick={toggleAddForm}
+              variant="contained"
+              color="primary"
+            >
+              Toggle add
+            </Button>
+          </TableCell>
+        </TableRow>
+      }
       <TableRow>
         {headCells.map((headCell, cellMapId) => {
           const { id, label, active } = headCell;
@@ -84,7 +97,7 @@ const TodoTableHead: React.FC = () => {
             return (
               <TableCell
                 key={id}
-                align="right"
+                align="center"
               >
                 {label}
               </TableCell>

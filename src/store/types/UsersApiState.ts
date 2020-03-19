@@ -1,7 +1,7 @@
-import { User } from './User';
+import { UserType } from './User';
 
 export type UsersApiState = {
-  userList: Array<User>,
+  userList: Array<UserType>,
   isFetching: boolean,
   error: string | null,
 }

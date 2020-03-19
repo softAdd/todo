@@ -1,4 +1,4 @@
-import { Todo } from 'store/types/Todo';
+import { TodoType } from 'store/types/Todo';
 import {
   TodosActionTypes,
   ADD_TODO,
@@ -7,16 +7,16 @@ import {
   SET_TODOS,
 } from '../action-types';
 
-const todosInitialReducer: Array<Todo> = [];
+const todosInitialReducer: Array<TodoType> = [];
 
 export default (
   state = todosInitialReducer,
   action: TodosActionTypes,
-): Array<Todo> => {
+): Array<TodoType> => {
 
   switch (action.type) {
     case ADD_TODO:
-      return [...state, action.todo];
+      return [ action.todo, ...state ];
     case EDIT_TODO:
       return [...state, action.todo];
     case REMOVE_TODO: {

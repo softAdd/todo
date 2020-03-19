@@ -1,4 +1,4 @@
-import { User } from 'store/types/User';
+import { UserType } from 'store/types/User';
 
 export const SET_USERS = 'SET_USERS'
 export const SET_FETCHING_USERS = 'SET_FETCHING_TODOS';
@@ -7,7 +7,7 @@ export const SET_FETCH_USERS_ERROR = 'SET_FETCH_TODOS_ERROR';
 
 export type SetUsersAction = {
   type: typeof SET_USERS,
-  users: Array<User>,
+  users: Array<UserType>,
 }
 
 export type SetFetchingUsersAction = {
